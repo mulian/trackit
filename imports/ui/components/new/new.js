@@ -7,7 +7,9 @@ Template.new.onCreated(function() {
 
 Template.new.helpers({
   newTracker() {
-    return dbTracks.new();
+    let trackId = this.otherData;
+    if(trackId) return dbTracks.findOne({_id:trackId});
+    else return dbTracks.new();
   },
   time() {
     // console.log(this);
@@ -36,7 +38,7 @@ Template.new.helpers({
     if(this.start) return 'disabled';
   },
   stopDisabled() {
-    if(!this.start) return 'disabled';
+    if(!this.start || this.stop) return 'disabled';
   },
 });
 
@@ -49,5 +51,8 @@ Template.new.events({
   },
   'blur .title'(e,i) {
     this.title = e.target.value;
-  }
+  },
+  'blur .desc'(e,i) {
+    this.desc = e.target.value;
+  },
 })

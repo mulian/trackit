@@ -7,6 +7,7 @@ class Track extends MainObj {
       start: undefined,
       stop: undefined,
       title: "",
+      desc:"",
     }));
   }
 

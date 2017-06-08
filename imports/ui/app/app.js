@@ -18,6 +18,12 @@ Template.app.onRendered(function() {
   $('.mdl-navigation__link.menu-close').click(() => {
     document.querySelector('.mdl-layout').MaterialLayout.closeDrawer()
   });
+  $('.searchit').keyup((e) => {
+    if(e.keyCode==13) {
+      // Session.set('search',e.target.value);
+      Router.go('tracks',undefined,{query:{q:e.target.value}});
+    }
+  });
 });
 
 Template.app.helpers({
@@ -30,9 +36,11 @@ Template.app.helpers({
 });
 
 // Template.app.events({
-//   'click .menu-close'(e,i) {
-//     e.preventDefault();
+//   'click .mdl-navigation__link.menu-close'(e,i) {
 //     console.log("jo");
-//     console.log(i.find('#drawer'));
 //   },
-// })
+//   'keyup .searchit'(e,i) {
+//     console.log("jo");
+//     // console.log("jo",e.target.value);
+//   },
+// });

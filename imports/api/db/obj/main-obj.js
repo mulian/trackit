@@ -6,7 +6,7 @@ export default
 class MainObj {
   constructor(collection,doc) {
     this.collection = this.setCollection(collection);
-    console.log(doc);
+    // console.log(doc);
     if(doc) this.setDoc(doc);
   }
   setCollection(collection) {

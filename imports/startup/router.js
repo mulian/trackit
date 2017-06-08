@@ -25,12 +25,13 @@ function subscribers() {
  * @param data          Daten die an das Template geschickt werden
  */
 let isApp = false;
-function loginActionWith(_this, appTemplate, welcomeTemplate) {
+function loginActionWith(_this, appTemplate, welcomeTemplate,otherData) {
   if (_this.ready()) {
     if (Meteor.userId()) {
       _this.render('app',{
         data: {
           template: appTemplate,
+          otherData: otherData,
         },
       });
     } else {
@@ -51,16 +52,25 @@ Router.route('/new', {
  name: 'new',
  subscriptions: subscribers,
  action: function() {
-   // this.state.set('taskID', undefined);
+  //  this.state.set('trackId', undefined);
    loginActionWith(this, 'new', 'fullPageAtForm');
  },
+});
+Router.route('/show/:_id',{
+  name: 'show',
+  subscriptions: subscribers,
+  action: function() {
+    // this.state.set('trackId', this.params._id);
+    loginActionWith(this, 'new', 'fullPageAtForm',this.params._id);
+  },
 });
 Router.route('/tracks', {
   name: 'tracks',
   subscriptions: subscribers,
   action: function() {
     // this.state.set('taskID', undefined);
-    loginActionWith(this, 'tracks', 'fullPageAtForm');
+    // console.log(this.params);
+    loginActionWith(this, 'tracks', 'fullPageAtForm',this.params.query.q);
   },
 });
 

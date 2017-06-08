@@ -3,9 +3,15 @@ import './tracks.html'
 
 Template.tracks.helpers({
   tracks() {
+    let query = this.otherData;
+    if(query==undefined) query='';
+    let exp = new RegExp('.*'+query+'.*','i');
     return dbTracks.find({
       stop: {$not:undefined},
-      title: {$not:""},
+      title: {
+        $not:"",
+        $regex: exp,
+      },
     },{
       sort: {created:-1},
     });

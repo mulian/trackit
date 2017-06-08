@@ -21,6 +21,28 @@
         Ende
       </button>
     </div>
+    <div class="mdl-cell mdl-cell--4-col ">
+      <h4>Beschreibung</h4>
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#editor-panel" class="mdl-tabs__tab">Bearbeiten</a>
+            <a href="#markdown-panel" class="mdl-tabs__tab is-active">Markdown</a>
+        </div>
+        <div class="mdl-tabs__panel" id="editor-panel">
+          <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input desc" type="text" rows= "5" id="sample5" >{{desc}}</textarea>
+            <label class="mdl-textfield__label" for="sample5">Description...</label>
+          </div>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="markdown-panel">
+          <div>
+            {{#markdown}}
+              {{desc}}
+            {{/markdown}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   {{ /with }}
