@@ -6,7 +6,10 @@ class DBTracks extends Main {
     super('tracks',Tracks);
   }
   getFullCalendar() {
-    return this.find().map(function(doc) {
+    return this.find({
+      title: {$not:""},
+      stop: {$not:undefined},
+    }).map(function(doc) {
       return {
         id: doc._id,
         title: doc.title,
