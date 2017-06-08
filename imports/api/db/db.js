@@ -4,6 +4,7 @@ import Track from './obj/track.js'
 
 const plainDBTracks = new DBTracks(Track);
 
+Ground.Collection(Meteor.users);
 export const dbTracks = new  Ground.Collection(plainDBTracks);
 
 TRACKS = plainDBTracks;

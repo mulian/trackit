@@ -73,6 +73,15 @@ Router.route('/tracks', {
     loginActionWith(this, 'tracks', 'fullPageAtForm',this.params.query.q);
   },
 });
+Router.route('/calendar', {
+  name: 'calendar',
+  subscriptions: subscribers,
+  action: function() {
+    // this.state.set('taskID', undefined);
+    // console.log(this.params);
+    loginActionWith(this, 'calendar', 'fullPageAtForm',this.params.query.q);
+  },
+});
 
 Router.route('/', {
   name: 'default',

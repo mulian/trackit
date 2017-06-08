@@ -19,15 +19,20 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Menu</span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link menu-close" href="{{pathFor route='new'}}">
+        <a class="mdl-navigation__link menu-close {{isSelected 'new'}}" href="{{pathFor route='new'}}">
           <i class="material-icons">add</i>
           Neu
         </a>
-        <a class="mdl-navigation__link menu-close" href="{{pathFor route='tracks'}}">
+        <a class="mdl-navigation__link menu-close {{isSelected 'tracks'}}" href="{{pathFor route='tracks'}}">
           <i class="material-icons">list</i>
           Tracks
         </a>
-        <a class="mdl-navigation__link menu-close" href="{{pathFor route='logout'}}">
+        <a class="mdl-navigation__link menu-close {{isSelected 'calendar'}}" href="{{pathFor route='calendar'}}">
+          <i class="material-icons">event</i>
+          Kalender
+        </a>
+        <!-- <div class="mdl-layout-spacer"></div> -->
+        <a class="mdl-navigation__link menu-close {{isSelected 'logout'}}" href="{{pathFor route='logout'}}">
           <i class="material-icons">power</i>
           Logout
         </a>

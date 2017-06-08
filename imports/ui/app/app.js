@@ -2,6 +2,7 @@ import './app.html'
 
 import '../components/tracks/tracks.js'
 import '../components/new/new.js'
+import '../components/calendar/calendar.js'
 
 //Hook to only close the Drawer
 MaterialLayout.prototype.closeDrawer = function () {
@@ -27,6 +28,11 @@ Template.app.onRendered(function() {
 });
 
 Template.app.helpers({
+  isSelected(route) {
+    // console.log(this,route);
+    if(this.template==route) return 'mdl-color-text--primary';
+    // console.log(this);
+  }
   // getTemplate() {
   //   // return this.remplate;
   //   console.log(this)

@@ -5,6 +5,16 @@ class DBTracks extends Main {
   constructor(Tracks) {
     super('tracks',Tracks);
   }
+  getFullCalendar() {
+    return this.find().map(function(doc) {
+      return {
+        id: doc._id,
+        title: doc.title,
+        start: moment(doc.start),
+        end: moment(doc.stop),
+      }
+    });
+  }
   new() {
     let already = this.findOne({
       $or: [
