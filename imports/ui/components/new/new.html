@@ -1,0 +1,27 @@
+<template name='new'>
+  {{ #with newTracker }}
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col ">
+      <h3>
+        {{time}}
+      </h3>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col ">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input title" type="text" id="sample3" value="{{title}}">
+        <label class="mdl-textfield__label" for="sample3">Titel...</label>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col ">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect start" {{startDisabled}}>
+        Start
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect stop" {{stopDisabled}}>
+        Ende
+      </button>
+    </div>
+  </div>
+
+  {{ /with }}
+</template>

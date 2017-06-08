@@ -1,0 +1,13 @@
+{
+  "name": "Home",
+  "icons": [
+    {
+      "src": "/icon_256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+  ],
+  "theme_color": "#FFF",
+  "display": "standalone",
+  "start_url": "/"
+}

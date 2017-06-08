@@ -1,0 +1,20 @@
+<template name='app'>
+  <!-- app... -->
+  <!-- No header, and the drawer stays open on larger screens (fixed drawer). -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title"><img src='/icon_256.png' height='30px'>  Track IT!</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link menu-close" href="{{pathFor route='new'}}">Neu</a>
+        <a class="mdl-navigation__link menu-close" href="{{pathFor route='tracks'}}">Tracks</a>
+        <!-- <a class="mdl-navigation__link menu-close" href="">Link</a> -->
+        <a class="mdl-navigation__link menu-close" href="{{pathFor route='logout'}}">Logout</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        {{> Template.dynamic }}
+      </div>
+    </main>
+  </div>
+</template>

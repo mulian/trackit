@@ -1,0 +1,18 @@
+<template name='tracks'>
+  <ul class="demo-list-two mdl-list">
+    {{#each tracks }}
+    <li class="mdl-list__item mdl-list__item--two-line">
+      <span class="mdl-list__item-primary-content">
+        <i class="material-icons mdl-list__item-avatar">check circle</i>
+        <span>{{title}}</span>
+        <span class="mdl-list__item-sub-title">{{duration}}</span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <span class="mdl-list__item-secondary-info">{{timeStart}}</span>
+        <span class='mdl-list__item-secondary-info'>{{timeStop}}</span>
+        <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a> -->
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+</template>
