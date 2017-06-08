@@ -10,7 +10,7 @@ function resize() {
 
 Template.calendar.onRendered(function() {
   $('#calendar').fullCalendar({
-    locale: 'de',
+    lang: 'de',
     header: {
       left: 'prev,next today',
       center: 'title',
