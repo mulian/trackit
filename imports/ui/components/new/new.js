@@ -3,6 +3,7 @@ import {dbTracks} from '../../../api/db/db.js'
 
 Template.new.onCreated(function() {
   this.now = new ReactiveVar();
+  $('.searchit').val('');
 });
 
 Template.new.helpers({

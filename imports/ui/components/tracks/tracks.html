@@ -1,4 +1,5 @@
 <template name='tracks'>
+  {{#if otherData }}<h4>Suche: "{{otherData}}"</h4>{{/if}}
   <ul class="demo-list-two mdl-list">
     {{#each tracks }}
     <li class="mdl-list__item mdl-list__item--two-line">
