@@ -4,7 +4,7 @@ import Track from './obj/track.js'
 
 const plainDBTracks = new DBTracks(Track);
 
-export const dbTracks = plainDBTracks;
+export const dbTracks = new  Ground.Collection(plainDBTracks);
 
 TRACKS = plainDBTracks;
 
