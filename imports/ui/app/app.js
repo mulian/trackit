@@ -4,6 +4,8 @@ import '../components/tracks/tracks.js'
 import '../components/new/new.js'
 import '../components/calendar/calendar.js'
 
+import {dbTracks} from '../../api/db/db.js'
+
 //Hook to only close the Drawer
 MaterialLayout.prototype.closeDrawer = function () {
     var drawerButton = this.element_.querySelector('.' + this.CssClasses_.DRAWER_BTN);
@@ -32,13 +34,31 @@ Template.app.helpers({
     // console.log(this,route);
     if(this.template==route) return 'mdl-color-text--primary';
     // console.log(this);
-  }
-  // getTemplate() {
-  //   // return this.remplate;
-  //   console.log(this)
-  //   console.log(Iron.controller().state.get('template'));
-  //   return Iron.controller().state.get('template');
-  // }
+  },
+  current() {
+    let track = dbTracks.new();
+    console.log(track);
+    return track;
+  },
+  isStarted() {
+    return this.start&&!this.stop;
+  },
+  currentDuration() {
+    // console.log(this);
+
+    let i = Template.instance();
+    if(!i.now) i.now = new ReactiveVar();
+    let nowVar = i.now;
+    if(this && this.start)
+      setTimeout(function() {
+        // console.log("jo");
+        nowVar.set(new Date());
+      },1*1000);
+    nowVar.get(); //for refresh...
+
+    // console.log(this);
+    return this.duration('HH:mm:ss');
+  },
 });
 
 // Template.app.events({

@@ -2,7 +2,7 @@ import './new.html'
 import {dbTracks} from '../../../api/db/db.js'
 
 Template.new.onCreated(function() {
-  this.now = new ReactiveVar();
+  // this.now = new ReactiveVar();
   $('.searchit').val('');
 });
 
@@ -14,26 +14,17 @@ Template.new.helpers({
   },
   time() {
     // console.log(this);
-    // console.log(moment);
-    if(this.start) {
-      let nowVar = Template.instance().now;
-      let start = moment(this.start);
-      let diff;
-      if(!this.stop) {
-        let now = moment(nowVar.get());
-        setTimeout(function() {
-          nowVar.set(new Date());
-        },1*1000);
+    let i = Template.instance();
+    if(!i.now) i.now = new ReactiveVar();
+    let nowVar = i.now;
+    if(!this.stop)
+      setTimeout(function() {
+        // console.log("jo");
+        nowVar.set(new Date());
+      },1*1000);
+    nowVar.get(); //for refresh...
 
-        diff = moment.duration(now.diff(start));
-      } else if(this.stop) {
-        let stop = moment(this.stop);
-        diff = moment.duration(stop.diff(start));
-      }
-      diff.subtract(1,'hours');
-      // console.log(moment(diff.asMilliseconds()).format('HH:mm:ss'));
-      return moment(diff.asMilliseconds()).format('HH:mm:ss');
-    }
+    return this.duration('HH:mm:ss');
   },
   startDisabled() {
     if(this.start) return 'disabled';

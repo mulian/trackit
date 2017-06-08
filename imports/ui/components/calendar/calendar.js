@@ -10,16 +10,17 @@ function resize() {
 
 Template.calendar.onRendered(function() {
   $('#calendar').fullCalendar({
+    nowIndicator: true,
+    scrollTime: moment().subtract(3,'hours').format('HH:mm:ss'),
     lang: 'de',
     header: {
       left: 'prev,next today',
       center: 'title',
       right: 'month,agendaWeek,basicWeek,agendaDay'
     },
-    defaultView: 'basicWeek',
+    defaultView: 'agendaDay',
     events: dbTracks.getFullCalendar(),
     eventClick: function(calEvent,jsEvent,view) {
-      // console.log(calEvent);
       Router.go('show',{_id:calEvent.id});
     },
   });
