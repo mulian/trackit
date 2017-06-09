@@ -5,10 +5,11 @@ import '../../css/clockpicker.css'
 
 Template.new.onCreated(function() {
   // this.now = new ReactiveVar();
-  $('.searchit').val('');
+
 });
 Template.new.onRendered(function() {
-  $('.clockpicker').clockpicker();
+  this.$('.searchit').val('');
+  this.$('.clockpicker').clockpicker();
 });
 
 Template.new.helpers({

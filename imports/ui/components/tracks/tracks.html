@@ -1,23 +1,46 @@
 <template name='tracks'>
-  {{#if otherData }}<h4>Suche: "{{otherData}}"</h4>{{/if}}
-  <ul class="demo-list-two mdl-list">
-    {{#each tracks }}
-    <li class="mdl-list__item mdl-list__item--two-line">
-      <span class="mdl-list__item-primary-content">
-        <i class="material-icons mdl-list__item-avatar">check circle</i>
-        <span>
-          <a href="{{pathFor route='show'}}">
-            {{title}}
-          </a>
-        </span>
-        <span class="mdl-list__item-sub-title">{{duration}}</span>
-      </span>
-      <span class="mdl-list__item-secondary-content">
-        <span class="mdl-list__item-secondary-info">{{timeStart}}</span>
-        <span class='mdl-list__item-secondary-info'>{{timeStop}}</span>
-        <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a> -->
-      </span>
-    </li>
-    {{/each}}
-  </ul>
+  <div class="mdl-grid">
+    {{#if otherData }}
+    <h4 class='mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col'>
+      Suche: "{{otherData}}"
+    </h4>
+    {{/if}}
+    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input datepicker from" type="text" id="from" value="{{startDate}}">
+      <label class="mdl-textfield__label" for="from">Von Datum...</label>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
+      <label class="mdl-textfield__label" for="till">Bis Datum...</label>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col">
+      <table class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Titel</th>
+            <th>Vom</th>
+            <th>Bis</th>
+            <th>Dauer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each tracks }}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              <a href="{{pathFor route='show'}}">
+                {{title}}
+              </a>
+            </td>
+            <td>{{parseToTime start 'DD.MM.YY HH:mm'}}</td>
+            <td>{{parseToTime stop 'DD.MM.YY HH:mm'}}</td>
+            <td>{{duration}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect csvDownload">
+      Download as CSV
+    </button>
+  </div>
 </template>

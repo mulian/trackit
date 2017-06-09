@@ -32,8 +32,10 @@ class Track extends MainObj {
     }
   }
 
-  parseToTime(date) {
-    return moment(date).format("HH:mm");
+  parseToTime(date,format="HH:mm") {
+    // console.log(date,moment(date).format);
+    // console.log(format);
+    return moment(date).format(format);
   }
   parseHourMin(str) {
     let timeSplit = str.split(':');

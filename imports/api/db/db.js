@@ -15,4 +15,17 @@ if(Meteor.isServer) {
     // console.log(userId,Meteor.userId(),lo);
     return plainDBTracks.find({owner:this.userId});
   });
+
+  Meteor.methods({
+    download(q,query) {
+      console.log(q);
+      if(query) q.title.$regex = new RegExp('.*'+query+'.*','i');
+      var collection = plainDBTracks.find(q,{
+        sort: {created:-1},
+      }).fetch();
+      var heading = true; // Optional, defaults to true
+      var delimiter = ";" // Optional, defaults to ",";
+      return exportcsv.exportToCSV(collection, heading, delimiter);
+    }
+  })
 }
