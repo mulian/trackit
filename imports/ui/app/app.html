@@ -28,16 +28,14 @@
       <span class="mdl-layout-title">Menu</span>
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link menu-close {{isSelected 'new'}}" href="{{pathFor route='new'}}">
-          <i class="material-icons">add</i>
-          Neu
           {{#with current}}
             {{#if isStarted}}
-              <span class='mdl-color-text--accent'>
-                <i class="material-icons">autorenew</i>
-                <!-- {{title}} -->
-              </span>
+              <i class="material-icons mdl-color-text--accent">autorenew</i>
+            {{else}}
+              <i class="material-icons">add</i>
             {{/if}}
           {{/with}}
+          Neu
         </a>
         <a class="mdl-navigation__link menu-close {{isSelected 'tracks'}}" href="{{pathFor route='tracks'}}">
           <i class="material-icons">list</i>
