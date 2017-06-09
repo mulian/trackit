@@ -1,5 +1,7 @@
 import MainObj from './main-obj.js'
 
+
+
 export default
 class Track extends MainObj {
   constructor(collection,doc={}) {
@@ -28,5 +30,17 @@ class Track extends MainObj {
       // console.log(moment(diff.asMilliseconds()).format('HH:mm:ss'));
       return moment(diff.asMilliseconds()).format(format);
     }
+  }
+
+  parseToTime(date) {
+    return moment(date).format("HH:mm");
+  }
+  parseHourMin(str) {
+    let timeSplit = str.split(':');
+    let newTime = moment(this.start).set({
+      hour: timeSplit[0],
+      minute: timeSplit[1],
+    });
+    return newTime;
   }
 }

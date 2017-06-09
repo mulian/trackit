@@ -1,9 +1,14 @@
 import './new.html'
 import {dbTracks} from '../../../api/db/db.js'
 
+import '../../css/clockpicker.css'
+
 Template.new.onCreated(function() {
   // this.now = new ReactiveVar();
   $('.searchit').val('');
+});
+Template.new.onRendered(function() {
+  $('.clockpicker').clockpicker();
 });
 
 Template.new.helpers({
@@ -32,6 +37,9 @@ Template.new.helpers({
   stopDisabled() {
     if(!this.start || this.stop) return 'disabled';
   },
+  isTrackReady() {
+    return this.start && this.stop && this.title!="";
+  }
 });
 
 Template.new.events({
@@ -46,5 +54,15 @@ Template.new.events({
   },
   'blur .desc'(e,i) {
     this.desc = e.target.value;
+  },
+  'blur .from'(e,i) {
+    setTimeout(() => {
+      this.start = this.parseHourMin(e.target.value).toDate();
+    },500);
+  },
+  'blur .till'(e,i) {
+    setTimeout(() => {
+      this.stop = this.parseHourMin(e.target.value).toDate();
+    },500);
   },
 })

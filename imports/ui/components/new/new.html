@@ -1,46 +1,45 @@
 <template name='new'>
   {{ #with newTracker }}
-
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col ">
-      <h3>
-        {{time}}
-      </h3>
-    </div>
-    <div class="mdl-cell mdl-cell--12-col ">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input title" type="text" id="sample3" value="{{title}}">
-        <label class="mdl-textfield__label" for="sample3">Titel...</label>
+    <h3 class='mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col'>
+      {{time}}
+    </h3>
+    {{#if isTrackReady}}
+      <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label clockpicker">
+        <input class="mdl-textfield__input from" type="text" id='from' value="{{parseToTime start}}">
+        <label class="mdl-textfield__label" for="from">Von</label>
       </div>
+      <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label clockpicker">
+        <input class="mdl-textfield__input till" type="text" id='till' value="{{parseToTime stop}}">
+        <label class="mdl-textfield__label" for="till">Bis</label>
+      </div>
+    {{/if}}
+    <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input title" type="text" id="sample3" value="{{title}}">
+      <label class="mdl-textfield__label" for="sample3">Titel...</label>
     </div>
-    <div class="mdl-cell mdl-cell--12-col ">
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect start" {{startDisabled}}>
-        Start
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect stop" {{stopDisabled}}>
-        Ende
-      </button>
-    </div>
-    <div class="mdl-cell mdl-cell--4-col ">
-      <h4>Beschreibung</h4>
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-            <a href="#editor-panel" class="mdl-tabs__tab">Bearbeiten</a>
-            <a href="#markdown-panel" class="mdl-tabs__tab is-active">Markdown</a>
+    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect start" {{startDisabled}}>
+      Start
+    </button>
+    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect stop" {{stopDisabled}}>
+      Ende
+    </button>
+    <h4 class="mdl-cell mdl-cell--12-col">Beschreibung</h4>
+    <div class="mdl-cell mdl-cell--12-col mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar">
+        <a href="#editor-panel" class="mdl-tabs__tab">Bearbeiten</a>
+        <a href="#markdown-panel" class="mdl-tabs__tab is-active">Markdown</a>
+      </div>
+      <div class="mdl-tabs__panel" id="editor-panel">
+        <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+          <textarea class="mdl-textfield__input desc" type="text" rows="5" id="sample5">{{desc}}</textarea>
+          <label class="mdl-textfield__label" for="sample5">Description...</label>
         </div>
-        <div class="mdl-tabs__panel" id="editor-panel">
-          <div class="mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input desc" type="text" rows= "5" id="sample5" >{{desc}}</textarea>
-            <label class="mdl-textfield__label" for="sample5">Description...</label>
-          </div>
-        </div>
-        <div class="mdl-tabs__panel is-active" id="markdown-panel">
-          <div>
-            {{#markdown}}
-              {{desc}}
-            {{/markdown}}
-          </div>
-        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--12-col mdl-tabs__panel is-active" id="markdown-panel">
+        {{#markdown}}
+          {{desc}}
+        {{/markdown}}
       </div>
     </div>
   </div>
