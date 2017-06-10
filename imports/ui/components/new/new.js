@@ -50,6 +50,10 @@ Template.new.events({
   'click .stop'(e,i) {
     this.timerStop();
   },
+  'click .remove'(e,i) {
+    this.remove();
+    Router.go('new');
+  },
   'blur .title'(e,i) {
     this.title = e.target.value;
   },
