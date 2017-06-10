@@ -42,14 +42,17 @@ function getTracks(withoutTransform) {
 }
 let withoutColumns=['_id','owner'];
 function getCSV(withTitle=true) {
-  let tracks = getTracks(true);
+  let tracks = getTracks();
   let str = "";
   let title = "";
   let once = true;
-  tracks.forEach(function(doc) {
+  tracks.forEach(function(docOriginal) {
+    let doc = docOriginal._;
     if(once && withTitle) {
       for(item in doc) {
-        if(!_.contains(withoutColumns,item)) title+=item+';';
+        if(!_.contains(withoutColumns,item))
+          title+=
+            String(item.charAt(0)).toUpperCase()+ item.slice(1)+';';
       }
       title+='\n';
       once=false;
@@ -121,8 +124,8 @@ Template.tracks.events({
   },
   'click .csvDownload'(e,i) {
     let content = getCSV();
-    console.log(content);
-    // var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-    // saveAs(blob,'bla.csv');
+    // console.log(content);
+    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    saveAs(blob,'bla.csv');
   }
 });

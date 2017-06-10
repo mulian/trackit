@@ -35,7 +35,7 @@ if(Meteor.isServer) {
     if(pw) SecureLayer.user.setPassword(pw);
     // console.log($('#at-field-password_again').val());
     if($('#at-field-password_again').val() && $('#at-field-password_again').val()!='') {
-      console.log("create");
+      // console.log("create");
       SecureLayer.DBUserKey.create();
     }
   });
