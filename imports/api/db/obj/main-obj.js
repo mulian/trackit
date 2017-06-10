@@ -87,6 +87,23 @@ class MainObj {
     },saveTimer);
   }
 
+  insertSecure(type,cb,defaultObj,force) {
+    SecureLayer.DBGroupsUsers.create([],{  //TODO: change to SecureLayer.xxx not dbProfile but its the same
+      type: type,
+      callback: (err,groupId) => {
+        if(err) throw err;
+        else {
+          if(defaultObj) {
+            _.defaults(this,defaultObj);
+          }
+          this.groupId= groupId;
+
+          this._insert(force,cb);
+        }
+      }
+    });
+  }
+
   _insert(force,cb) {
     if(force instanceof Function) cb = force;
     if(force || !_.contains(this,'_id'))

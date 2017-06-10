@@ -13,6 +13,16 @@ class Track extends MainObj {
     }));
   }
 
+  insert(...args) {
+    let tmp = this.collection().findOne({});
+    if(!tmp) {
+      this.insertSecure('track');
+    } else {
+      this.groupId = tmp.groupId;
+      return super.insert.apply(this,args);
+    }
+  }
+
 
   timerStart() {
     this.start = new Date();

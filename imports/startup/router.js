@@ -1,3 +1,4 @@
+import './create-user.js'
 import '../api/db/db.js'
 import '../ui/ui.js'
 
@@ -11,8 +12,7 @@ RouteController.prototype.redirect = function (routeOrPath, params, options) {
     }
     return this.router.go(routeOrPath, params, options);
 };
-
-let collections = ['db_tracks']
+let collections = ['db_secure_user','db_secure_groups_users','db_users','db_tracks']
 function subscribers() {
   for(collection of collections) {
     let tmp = this.subscribe(collection);

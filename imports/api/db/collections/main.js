@@ -1,7 +1,7 @@
 export default
-class Main extends Mongo.Collection {
+class Main extends SecureLayer.SecureCollection {
   constructor(name,Obj) {
-    super(name,{
+    super(name,['desc','title'],{
       transform: (doc) => new Obj(this,doc),
     });
     this.obj = Obj;
