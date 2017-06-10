@@ -19,7 +19,7 @@ Template.tracks.onRendered(function() {
   // });
   // this.$('.clockpicker').clockpicker();
 });
-function getTracks(onlyQuery=false) {
+function getTracks(withoutTransform) {
   let q = {
     stop: {$not:undefined},
     title: {
@@ -33,15 +33,44 @@ function getTracks(onlyQuery=false) {
   if(Session.get('startDate')) q.start = { $gte: Session.get('startDate'), };
   if(Session.get('toDate')) q.stop = { $lte: Session.get('toDate'), };
 
-  if(onlyQuery) return q;
-  else return dbTracks.find(q,{
-      sort: {created:-1},
-    });
+  let options = {
+    sort: {created:-1},
+  }
+  if(withoutTransform) options.transform = null;
+
+  return dbTracks.find(q,options);
+}
+let withoutColumns=['_id','owner'];
+function getCSV(withTitle=true) {
+  let tracks = getTracks(true);
+  let str = "";
+  let title = "";
+  let once = true;
+  tracks.forEach(function(doc) {
+    if(once && withTitle) {
+      for(item in doc) {
+        if(!_.contains(withoutColumns,item)) title+=item+';';
+      }
+      title+='\n';
+      once=false;
+    }
+    for(item in doc) {
+      // console.log(item);
+      if(!_.contains(withoutColumns,item)) {
+        let tmp ="";
+        if(doc[item] instanceof Date) tmp = moment(doc[item]).format('DD.MM.YY HH:MM:ss');
+        else tmp = doc[item];
+        str+='"'+tmp+'";'
+      }
+    }
+    str+='\n';
+  });
+  return title+str;
 }
 Template.tracks.helpers({
-  tracks(onlyQuery) {
+  tracks() {
     Session.set('query',this.otherData);
-    return getTracks(onlyQuery);
+    return getTracks();
   },
   startDate() {
     return moment(Session.get('startDate')).format('DD.MM.YY');
@@ -91,14 +120,9 @@ Template.tracks.events({
     }).toDate());
   },
   'click .csvDownload'(e,i) {
-    // console.log(this,i);
-    var nameFile = 'fileDownloaded.csv';
-    Meteor.call('download',getTracks(true),Session.get('query'), function(err, fileContent) {
-      if(fileContent){
-        // console.log(fileContent);
-       var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
-       saveAs(blob, nameFile);
-      }
-   });
+    let content = getCSV();
+    // console.log(content);
+    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    saveAs(blob,'bla.csv');
   }
 });
