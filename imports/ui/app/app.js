@@ -37,7 +37,7 @@ Template.app.helpers({
   },
   current() {
     let track = dbTracks.new();
-    console.log(track);
+    // console.log(track);
     return track;
   },
   isStarted() {
