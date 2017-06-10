@@ -34,7 +34,7 @@ function getTracks() {
   if(Session.get('toDate')) q.stop = { $lte: Session.get('toDate'), };
 
   return dbTracks.find(q,{
-    sort: {created:-1},
+    sort: {start:-1},
   });
 }
 let withoutColumns=['_id','owner'];
