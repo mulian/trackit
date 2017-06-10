@@ -4,7 +4,7 @@ Track your Time!
 Try it [here](https://track.progs.top/)
 
 ## Safe
-The [SecureLayer](https://atmospherejs.com/mulian/secure-layer) decrypts the title and description based on your Login. You can only read metadata on the database server.
+The [SecureLayer](https://atmospherejs.com/mulian/secure-layer) decrypts the title and description based on your Login.
 
 ## Views
 * Create new track
