@@ -3,11 +3,8 @@ Track your Time!
 
 Try it [here](https://track.progs.top/)
 
-## Track contains
-* Title
-* Descriptions (Markdown)
-* Start time
-* Stop time
+## Safe
+The [SecureLayer](https://atmospherejs.com/mulian/secure-layer) decrypts the title and description based on your Login. You can only read metadata on the database server.
 
 ## Views
 * Create new track
@@ -20,6 +17,12 @@ Try it [here](https://track.progs.top/)
 * With Filter
   - By Start and End-Date
   - Search query on Track-Title
+
+## Track contains
+* Title
+* Descriptions (Markdown)
+* Start time
+* Stop time
 
 ## Use it offline
 * with ServiceWorker API
