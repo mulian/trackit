@@ -19,7 +19,7 @@ Template.tracks.onRendered(function() {
   // });
   // this.$('.clockpicker').clockpicker();
 });
-function getTracks(withoutTransform) {
+function getTracks() {
   let q = {
     stop: {$not:undefined},
     title: {
@@ -33,12 +33,9 @@ function getTracks(withoutTransform) {
   if(Session.get('startDate')) q.start = { $gte: Session.get('startDate'), };
   if(Session.get('toDate')) q.stop = { $lte: Session.get('toDate'), };
 
-  let options = {
+  return dbTracks.find(q,{
     sort: {created:-1},
-  }
-  if(withoutTransform) options.transform = null;
-
-  return dbTracks.find(q,options);
+  });
 }
 let withoutColumns=['_id','owner'];
 function getCSV(withTitle=true) {
