@@ -5,7 +5,11 @@ import Track from './obj/track.js'
 const plainDBTracks = new DBTracks(Track);
 
 Ground.Collection(Meteor.users);
+Ground.Collection(SecureLayer.DBUserKey);
+Ground.Collection(SecureLayer.DBGroupsUsers);
 export const dbTracks = new  Ground.Collection(plainDBTracks);
+
+
 
 TRACKS = plainDBTracks;
 

@@ -121,8 +121,8 @@ Template.tracks.events({
   },
   'click .csvDownload'(e,i) {
     let content = getCSV();
-    // console.log(content);
-    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-    saveAs(blob,'bla.csv');
+    console.log(content);
+    // var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    // saveAs(blob,'bla.csv');
   }
 });

@@ -30,10 +30,12 @@ if(Meteor.isServer) {
   });
 } else {
   Accounts.onLogin(function(...args) {
-    let usrObj = SecureLayer.DBUserKey.findOne({_id:Meteor.userId()});
+    // let usrObj = SecureLayer.DBUserKey.findOne({_id:Meteor.userId()});
     let pw = $('#at-field-password').val();
-    SecureLayer.user.setPassword(pw);
-    if(!usrObj) {
+    if(pw) SecureLayer.user.setPassword(pw);
+    // console.log($('#at-field-password_again').val());
+    if($('#at-field-password_again').val() && $('#at-field-password_again').val()!='') {
+      console.log("create");
       SecureLayer.DBUserKey.create();
     }
   });
