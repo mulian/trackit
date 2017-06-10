@@ -70,6 +70,21 @@ function getCSV(withTitle=true) {
   });
   return title+str;
 }
+function getJSON() {
+  let tracks = getTracks();
+  let arr = [];
+  tracks.forEach(function(docOriginal) {
+    let doc = docOriginal._;
+    delete doc.groupId;
+    delete doc.owner;
+    delete doc.groupUsers;
+    delete doc.groupAdmins;
+    delete doc._id;
+    delete doc.encrypted;
+    arr.push(doc);
+  });
+  return arr;
+}
 Template.tracks.helpers({
   tracks() {
     Session.set('query',this.otherData);
@@ -126,6 +141,12 @@ Template.tracks.events({
     let content = getCSV();
     // console.log(content);
     var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-    saveAs(blob,'bla.csv');
-  }
+    saveAs(blob,'tracks.csv');
+  },
+  'click .jsonDownload'(e,i) {
+    let content = JSON.stringify(getJSON());
+    // console.log(content);
+    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    saveAs(blob,'tracks.json');
+  },
 });
