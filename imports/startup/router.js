@@ -12,8 +12,12 @@ RouteController.prototype.redirect = function (routeOrPath, params, options) {
     return this.router.go(routeOrPath, params, options);
 };
 
+let collections = ['db_tracks']
 function subscribers() {
-  this.subscribe('db_tracks').wait();
+  for(collection of collections) {
+    let tmp = this.subscribe(collection);
+    if(navigator.onLine) tmp.wait();
+  }
 }
 
 /**
