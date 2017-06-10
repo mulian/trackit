@@ -20,10 +20,6 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request.clone()).then((cached) => {
       // We don't return cached HTML (except if fetch failed)
-      // console.log("jo",self);
-      // if(cached) window.offline = true;
-      // else window.offline = false;
-      // else console.log("undefined!");
       if (cached) {
         const resourceType = cached.headers.get('content-type');
         // We only return non css/js/html cached response e.g images
