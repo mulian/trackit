@@ -1,24 +1,9 @@
 import {dbTracks} from '../../../api/db/db.js'
 import './tracks.html'
 
-import mdDateTimePicker from 'md-date-time-picker'
-import 'md-date-time-picker/dist/css/mdDateTimePicker.min.css'
-// import mdDateTimePicker from 'md-date-time-picker/src/js/mdDateTimePicker';
-
-let dialogDate,dialogTime;
-Template.tracks.onRendered(function() {
-  dialogDate = new mdDateTimePicker({
-    type: 'date',
-    // future: moment().add(3,'years'),
-    mode: true,
-  });
-  // dialogTime = new mdDateTimePicker({
-  //   type: 'time',
-  //   // future: moment().add(3,'years'),
-  //   mode: true,
-  // });
-  // this.$('.clockpicker').clockpicker();
-});
+// let dialogDate,dialogTime;
+// Template.tracks.onRendered(function() {
+// });
 function getTracks() {
   let q = {
     stop: {$not:undefined},
@@ -111,28 +96,15 @@ Template.tracks.helpers({
   },
 });
 Template.tracks.events({
-  'focus .datepicker'(e,i) {
-    dialogDate.toggle();
-    dialogDate.trigger = e.target;
+  'blur .from'(e,i) {
+    let v = e.target.value;
+    if(v=="") Session.set('startDate',undefined);
+    else Session.set('startDate',moment(v,["DD.MM.YY","DD.MM.YY HH:mm"]).toDate());
   },
-  // 'focus .datepickerTime'(e,i) {
-  //   dialogTime.toggle();
-  //   dialogTime.trigger = e.target;
-  // },
-  'onOk .from'(e,i) {
-    // e.target.value = dialogDate.time.format('DD.MM.YY');
-
-    Session.set('startDate',dialogDate.time.set({
-      hour: 0,
-      minute: 0,
-    }).toDate());
-  },
-  'onOk .till'(e,i) {
-    // e.target.value = dialogDate.time.format('DD.MM.YY');
-    Session.set('toDate',dialogDate.time.set({
-      hour: 23,
-      minute: 59,
-    }).toDate());
+  'blur .till'(e,i) {
+    let v = e.target.value;
+    if(v=="") Session.set('toDate',undefined);
+    else Session.set('toDate',moment(v,["DD.MM.YY","DD.MM.YY HH:mm"]).toDate());
   },
   'click .csvDownload'(e,i) {
     let content = getCSV();

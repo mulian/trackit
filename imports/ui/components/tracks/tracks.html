@@ -5,13 +5,19 @@
       Suche: "{{otherData}}"
     </h4>
     {{/if}}
+    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect csvDownload">
+      Download as CSV
+    </button>
+    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect jsonDownload">
+      Download as JSON
+    </button>
     <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input class="mdl-textfield__input datepicker from" type="text" id="from" value="{{startDate}}">
-      <label class="mdl-textfield__label" for="from">Von Datum...</label>
+      <label class="mdl-textfield__label" for="from">Von Datum... (DD.MM.YY [HH:mm])</label>
     </div>
     <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
-      <label class="mdl-textfield__label" for="till">Bis Datum...</label>
+      <label class="mdl-textfield__label" for="till">Bis Datum... (DD.MM.YY [HH:mm])</label>
     </div>
     <div class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col">
       <table class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
@@ -39,11 +45,5 @@
         </tbody>
       </table>
     </div>
-    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect csvDownload">
-      Download as CSV
-    </button>
-    <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect jsonDownload">
-      Download as JSON
-    </button>
   </div>
 </template>
