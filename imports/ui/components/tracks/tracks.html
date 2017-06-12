@@ -19,7 +19,8 @@
       <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
       <label class="mdl-textfield__label" for="till">Bis Datum... (DD.MM.YY [HH:mm])</label>
     </div>
-    <div class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col
+    ">
       <table class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
           <tr>
@@ -42,6 +43,12 @@
             <td>{{duration}}</td>
           </tr>
           {{/each}}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"></td>
+            <td></td>
+            <td>Total Duration:</td>
+            <td>{{totalDuration}}</td>
+          </tr>
         </tbody>
       </table>
     </div>

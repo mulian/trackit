@@ -38,7 +38,8 @@ class Track extends MainObj {
       let diff = moment.duration(stop.diff(start));
       diff.subtract(1,'hours');
       // console.log(moment(diff.asMilliseconds()).format('HH:mm:ss'));
-      return moment(diff.asMilliseconds()).format(format);
+      if(format==false) return diff;
+      else return moment(diff.asMilliseconds()).format(format);
     }
   }
 

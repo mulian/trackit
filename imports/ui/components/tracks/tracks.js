@@ -69,8 +69,18 @@ function getJSON() {
 }
 Template.tracks.helpers({
   tracks() {
+    let tracks = getTracks();
     Session.set('query',this.otherData);
-    return getTracks();
+    let i = Template.instance();
+    let d = _.reduce(
+      tracks.map(function(doc) { return doc.duration(false).asMilliseconds(); }),
+      function(memo,num) { return memo+num; },
+      0
+    );
+    let tDuration = moment(d).format('HH:mm');
+    if(!i.totalDuration) i.totalDuration = new ReactiveVar(tDuration);
+    else i.totalDuration.set(tDuration);
+    return tracks;
   },
   startDate() {
     return moment(Session.get('startDate')).format('DD.MM.YY');
@@ -94,6 +104,10 @@ Template.tracks.helpers({
   timeStop() {
     return moment(this.stop).format('DD.MM.YY HH:mm:ss');
   },
+  totalDuration() {
+    let totalDuration = Template.instance().totalDuration;
+    if(totalDuration) return totalDuration.get();
+  }
 });
 Template.tracks.events({
   'blur .from'(e,i) {
