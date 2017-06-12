@@ -1,5 +1,5 @@
 import './new.html'
-import {dbTracks} from '../../../api/db/db.js'
+import { dbTracks } from '../../../api/db/db.js'
 
 import '../../css/clockpicker.css'
 
@@ -9,65 +9,81 @@ Template.new.onCreated(function() {
 });
 Template.new.onRendered(function() {
   this.$('.searchit').val('');
-  this.$('.clockpicker').clockpicker();
+  this.$('.clockpicker').clockpicker({
+    donetext: 'Fertig',
+    vibrate: true,
+  });
 });
 
 Template.new.helpers({
   newTracker() {
     let trackId = this.otherData;
-    if(trackId) return dbTracks.findOne({_id:trackId});
+    if (trackId) return dbTracks.findOne({ _id: trackId });
     else return dbTracks.new();
   },
   time() {
     // console.log(this);
     let i = Template.instance();
-    if(!i.now) i.now = new ReactiveVar();
+    if (!i.now) i.now = new ReactiveVar();
     let nowVar = i.now;
-    if(!this.stop)
+    if (!this.stop)
       setTimeout(function() {
         // console.log("jo");
         nowVar.set(new Date());
-      },1*1000);
+      }, 1 * 1000);
     nowVar.get(); //for refresh...
 
     return this.duration('HH:mm:ss');
   },
   startDisabled() {
-    if(this.start) return 'disabled';
+    if (this.start) return 'disabled';
   },
   stopDisabled() {
-    if(!this.start || this.stop) return 'disabled';
+    if (!this.start || this.stop) return 'disabled';
   },
   isTrackReady() {
-    return this.start && this.stop && this.title!="";
-  }
+    return this.start && this.stop && this.title != "";
+  },
 });
 
 Template.new.events({
-  'click .start'(e,i) {
+  'click .start' (e, i) {
     this.timerStart();
   },
-  'click .stop'(e,i) {
+  'click .stop' (e, i) {
     this.timerStop();
   },
-  'click .remove'(e,i) {
+  'click .remove' (e, i) {
     this.remove();
     Router.go('new');
   },
-  'blur .title'(e,i) {
+  'focus .clockpicker' (e, i) {
+    e.preventDefault();
+  },
+  'blur .title' (e, i) {
     this.title = e.target.value;
   },
-  'blur .desc'(e,i) {
+  'blur .desc' (e, i) {
     this.desc = e.target.value;
   },
-  'blur .from'(e,i) {
+  'blur .from' (e, i) {
     setTimeout(() => {
-      this.start = this.parseHourMin(e.target.value).toDate();
-    },500);
+      let date = i.find('#fromDate');
+      this.start = moment(date.value+e.target.value,'DD.MM.YYHH:mm').toDate();
+    }, 500);
   },
-  'blur .till'(e,i) {
+  'blur .till' (e, i) {
     setTimeout(() => {
-      this.stop = this.parseHourMin(e.target.value).toDate();
-    },500);
+      let date = i.find('#tillDate');
+      this.stop = moment(date.value+e.target.value,'DD.MM.YYHH:mm').toDate();
+    }, 500);
+  },
+  'blur .fromDate' (e, i) {
+    let time = i.find('#from');
+    this.start = moment(e.target.value+time.value,'DD.MM.YYHH:mm').toDate();
+  },
+  'blur .tillDate' (e, i) {
+    let time = i.find('#till');
+    this.stop = moment(e.target.value+time.value,'DD.MM.YYHH:mm').toDate();
   },
 })

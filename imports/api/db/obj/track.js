@@ -47,6 +47,14 @@ class Track extends MainObj {
     // console.log(format);
     return moment(date).format(format);
   }
+  parseHourMin(groundDate,setObj={}) {
+    let timeSplit = str.split(':');
+    let newTime = moment(this.start).set({
+      hour: timeSplit[0],
+      minute: timeSplit[1],
+    });
+    return newTime;
+  }
   parseHourMin(str) {
     let timeSplit = str.split(':');
     let newTime = moment(this.start).set({
