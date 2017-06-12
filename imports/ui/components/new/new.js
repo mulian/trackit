@@ -13,13 +13,17 @@ Template.new.onRendered(function() {
     donetext: 'Fertig',
     vibrate: true,
   });
+  // this.$('.title').focus();
 });
 
 Template.new.helpers({
   newTracker() {
     let trackId = this.otherData;
     if (trackId) return dbTracks.findOne({ _id: trackId });
-    else return dbTracks.new();
+    else return dbTracks.new(function() {
+      let i = Template.instance();
+      i.find('.title').value='';
+    });
   },
   time() {
     // console.log(this);

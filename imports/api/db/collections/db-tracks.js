@@ -18,7 +18,7 @@ class DBTracks extends Main {
       }
     });
   }
-  new() {
+  new(onNew) {
     let already = this.findOne({
       $or: [
         {title: "",},
@@ -27,6 +27,7 @@ class DBTracks extends Main {
     });
     if(already) return already;
     else {
+      if(onNew) onNew();
       let n = new this.obj(this);
       let value = n.insert();
       return this.findOne({_id:value});
