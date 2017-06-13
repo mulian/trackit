@@ -12,12 +12,15 @@ function getTracks() {
     },
   };
 
-  let query = Session.get('query');
-  if(query) q.title.$regex = new RegExp('.*'+query+'.*','i');
+  // let query = Session.get('query'), regex;
+  // if(query && query!='') q._.title.$regex = new RegExp('.*'+query+'.*','i');
 
   if(Session.get('startDate')) q.start = { $gte: Session.get('startDate'), };
   if(Session.get('toDate')) q.stop = { $lte: Session.get('toDate'), };
-
+  // dbTracks.local.find().forEach(function(doc) {
+  //   console.log(doc);
+  // })
+  console.log(q,dbTracks.find(q).fetch());
   return dbTracks.find(q,{
     sort: {start:-1},
   });
@@ -80,13 +83,16 @@ Template.tracks.helpers({
     let tDuration = moment(d).format('HH:mm');
     if(!i.totalDuration) i.totalDuration = new ReactiveVar(tDuration);
     else i.totalDuration.set(tDuration);
+    console.log(tracks.fetch());
     return tracks;
   },
   startDate() {
-    return moment(Session.get('startDate')).format('DD.MM.YY');
+    let d = Session.get('startDate');
+    if(d) return moment(d).format('DD.MM.YY');
   },
   stopDate() {
-    return moment(Session.get('toDate')).format('DD.MM.YY');
+    let d = Session.get('toDate');
+    if(d) return moment(d).format('DD.MM.YY');
   },
   duration() {
     let nowVar = Template.instance().now;
@@ -117,6 +123,7 @@ Template.tracks.events({
   },
   'blur .till'(e,i) {
     let v = e.target.value;
+
     if(v=="") Session.set('toDate',undefined);
     else Session.set('toDate',moment(v,["DD.MM.YY","DD.MM.YY HH:mm"]).toDate());
   },

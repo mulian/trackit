@@ -1,5 +1,7 @@
 import Main from './main.js'
 
+import {dbLocalTracks} from '../db.js'
+
 export default
 class DBTracks extends Main {
   constructor(Tracks) {
