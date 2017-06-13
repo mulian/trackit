@@ -6,7 +6,7 @@ import './tracks.html'
 // });
 function getTracks() {
   let q = {
-    stop: {$not:undefined},
+    stop: { $not:undefined },
     title: {
       $not:"",
     },

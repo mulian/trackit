@@ -1,11 +1,11 @@
 import Main from './main.js'
 
-import {dbLocalTracks} from '../db.js'
+// import {dbLocalTracks} from '../db.js'
 
 export default
 class DBTracks extends Main {
   constructor(Tracks) {
-    super('tracks',Tracks);
+    super('tracks',['desc','title'],Tracks);
   }
   getFullCalendar() {
     return this.find({

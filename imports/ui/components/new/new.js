@@ -1,7 +1,9 @@
 import './new.html'
-import { dbTracks } from '../../../api/db/db.js'
+import { dbTracks, dbLabels } from '../../../api/db/db.js'
 
 import '../../css/clockpicker.css'
+import 'getmdl-select/getmdl-select.min.js'
+import 'getmdl-select/getmdl-select.min.css'
 
 Template.new.onCreated(function() {
   // this.now = new ReactiveVar();
@@ -22,7 +24,7 @@ Template.new.helpers({
     if (trackId) return dbTracks.findOne({ _id: trackId });
     else return dbTracks.new(function() {
       let i = Template.instance();
-      i.find('.title').value='';
+      i.find('.title').value = '';
     });
   },
   time() {
@@ -48,6 +50,10 @@ Template.new.helpers({
   isTrackReady() {
     return this.start && this.stop && this.title != "";
   },
+
+  getLabels() {
+    return dbLabels.find();
+  }
 });
 
 Template.new.events({
@@ -73,21 +79,28 @@ Template.new.events({
   'blur .from' (e, i) {
     setTimeout(() => {
       let date = i.find('#fromDate');
-      this.start = moment(date.value+e.target.value,'DD.MM.YYHH:mm').toDate();
+      this.start = moment(date.value + e.target.value, 'DD.MM.YYHH:mm').toDate();
     }, 500);
   },
   'blur .till' (e, i) {
     setTimeout(() => {
       let date = i.find('#tillDate');
-      this.stop = moment(date.value+e.target.value,'DD.MM.YYHH:mm').toDate();
+      this.stop = moment(date.value + e.target.value, 'DD.MM.YYHH:mm').toDate();
     }, 500);
   },
   'blur .fromDate' (e, i) {
     let time = i.find('#from');
-    this.start = moment(e.target.value+time.value,'DD.MM.YYHH:mm').toDate();
+    this.start = moment(e.target.value + time.value, 'DD.MM.YYHH:mm').toDate();
   },
   'blur .tillDate' (e, i) {
     let time = i.find('#till');
-    this.stop = moment(e.target.value+time.value,'DD.MM.YYHH:mm').toDate();
+    this.stop = moment(e.target.value + time.value, 'DD.MM.YYHH:mm').toDate();
   },
+  // 'click .list' (e, i) {
+  //   let target = $(e.target);
+  //   if(target.hasClass('new')) {
+  //     let dialog = document.querySelector('dialog');
+  //     dialog.showModal();
+  //   }
+  // }
 })

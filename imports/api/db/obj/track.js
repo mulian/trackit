@@ -1,6 +1,5 @@
 import MainObj from './main-obj.js'
-
-
+import dbLabels from '../db.js'
 
 export default
 class Track extends MainObj {
@@ -10,7 +9,13 @@ class Track extends MainObj {
       stop: undefined,
       title: "",
       desc:"",
+      label: undefined,
     }));
+  }
+
+  getLabel() {
+    if(this.label) return dbLabels.findOne({_id:this.label});
+    else return {title: 'undefined'};
   }
 
   insert(...args) {
@@ -22,7 +27,6 @@ class Track extends MainObj {
       return super.insert.apply(this,args);
     }
   }
-
 
   timerStart() {
     this.start = new Date();

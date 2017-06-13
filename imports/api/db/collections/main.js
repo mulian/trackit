@@ -1,7 +1,7 @@
 export default
 class Main extends SecureLayer.SecureCollection {
-  constructor(name,Obj) {
-    super(name,['desc','title'],{
+  constructor(name,secureAttributes,Obj) {
+    super(name,secureAttributes,{
       transform: (doc) => new Obj(this,doc),
     });
     this.obj = Obj;

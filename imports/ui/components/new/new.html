@@ -1,9 +1,10 @@
 <template name='new'>
   {{ #with newTracker }}
   <div class="mdl-grid">
-    <h3 class='mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col'>
+    <h3 class='mdl-cell mdl-cell--2-col-phone mdl-cell--5-col-tablet mdl-cell--8-col'>
       {{time}}
     </h3>
+
     {{#if isTrackReady}}
       <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--2-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input fromDate" type="text" id='fromDate' value="{{parseToTime start 'DD.MM.YY'}}">
@@ -57,6 +58,30 @@
       </div>
     </div>
   </div>
-
   {{ /with }}
+  <!-- {{>newLabel}} -->
+</template>
+
+<template name='newLabel'>
+  <div class="mdl-cell mdl-cell--1-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+    <input class="mdl-textfield__input" id="country" name="country" value="{{getLabel}}" type="text" readonly tabIndex="-1" data-val="BLR"/>
+    <label class="mdl-textfield__label" for="country">Choose Label</label>
+    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu list" for="country">
+      {{#each getLabels}}
+      <li class="mdl-menu__item">{{title}}</li>
+      {{/each}}
+      <li class="mdl-menu__item new">New Label</li>
+    </ul>
+  </div>
+  <dialog class="mdl-dialog">
+    <div class="mdl-dialog__content">
+      <p>
+        Allow this site to collect usage data to improve your experience?
+      </p>
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+      <button type="button" class="mdl-button">Create</button>
+      <button type="button" class="mdl-button close">Cancel</button>
+    </div>
+  </dialog>
 </template>

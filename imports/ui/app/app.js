@@ -3,6 +3,7 @@ import './app.html'
 import '../components/tracks/tracks.js'
 import '../components/new/new.js'
 import '../components/calendar/calendar.js'
+import '../components/label-controll/label-controll.js'
 
 import {dbTracks} from '../../api/db/db.js'
 
