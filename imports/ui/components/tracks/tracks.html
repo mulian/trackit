@@ -11,26 +11,23 @@
     <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect jsonDownload">
       Download as JSON
     </button>
-    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input datepicker from" type="text" id="from" value="{{startDate}}">
-      <label class="mdl-textfield__label" for="from">Von Datum... (DD.MM.YY [HH:mm])</label>
-    </div>
-    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
-      <label class="mdl-textfield__label" for="till">Bis Datum... (DD.MM.YY [HH:mm])</label>
-    </div>
+    <h4 class='mdl-cell mdl-cell--2-col-phone mdl-cell--4-col'>
+      Total: {{totalDuration}}
+    </h4>
+    {{>filter}}
     <div class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col
     ">
       <table class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
           <tr>
             <th class="mdl-data-table__cell--non-numeric">Titel</th>
-            <th>Vom</th>
+            <th class="mdl-data-table__cell--non-numeric">Label</th>
+            <th>Von</th>
             <th>Bis</th>
             <th>Dauer</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {{#each tracks }}
           <tr>
             <td class="mdl-data-table__cell--non-numeric">
@@ -38,19 +35,47 @@
                 {{title}}
               </a>
             </td>
+            <td class="mdl-data-table__cell--non-numeric" style='color:{{getLabel.color}} !important'>
+              {{#if getLabel}}
+                <i class="material-icons">label</i>
+                {{getLabel.title}}
+              {{/if}}
+            </td>
             <td>{{parseToTime start 'DD.MM.YY HH:mm'}}</td>
             <td>{{parseToTime stop 'DD.MM.YY HH:mm'}}</td>
             <td>{{duration}}</td>
           </tr>
           {{/each}}
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric"></td>
-            <td></td>
-            <td>Total Duration:</td>
-            <td>{{totalDuration}}</td>
-          </tr>
         </tbody>
       </table>
     </div>
+  </div>
+</template>
+
+<template name='filter'>
+  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input datepicker from" type="text" id="from" value="{{startDate}}">
+    <label class="mdl-textfield__label" for="from">Von Datum... (DD.MM.YY [HH:mm])</label>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
+    <label class="mdl-textfield__label" for="till">Bis Datum... (DD.MM.YY [HH:mm])</label>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select mdl-selectfield--floating-labe">
+    <input class="mdl-textfield__input" id="label" style='color:{{getFilterLabel.color}}' value="{{getFilterLabel.title}}" type="text" readonly tabIndex="-1">
+    <label class="mdl-textfield__label" for="label">Filter by Label</label>
+    <div class='mdl-selectfield_box'>
+      <span class='mdl-selectfield__arrow-down'></span>
+    </div>
+    <ul class="mdl-menu mdl-js-menu list" for="label">
+      {{#each getLabels}}
+        <li class="mdl-menu__item" value='{{_id}}' style='color:{{color}}'>
+          {{title}}
+        </li>
+      {{/each}}
+      <li class="mdl-menu__item" value='clear' style='color:{{color}}'>
+        clear Label Filter
+      </li>
+    </ul>
   </div>
 </template>

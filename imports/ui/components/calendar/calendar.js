@@ -5,7 +5,7 @@ function resize() {
   // $('#asd').css({
   //   height: window.innerHeight-150,
   // })
-  $('#calendar').fullCalendar('option', 'height', window.innerHeight-70);
+  $('#calendar').fullCalendar('option', 'height', window.innerHeight-70-40);
 };
 
 Template.calendar.onRendered(function() {

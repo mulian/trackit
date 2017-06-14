@@ -1,7 +1,7 @@
 <template name='new'>
   {{ #with newTracker }}
   <div class="mdl-grid">
-    <h3 class='mdl-cell mdl-cell--2-col-phone mdl-cell--5-col-tablet mdl-cell--8-col'>
+    <h3 class='mdl-cell mdl-cell--4-col-phone mdl-cell--5-col-tablet mdl-cell--12-col'>
       {{time}}
     </h3>
 
@@ -23,10 +23,33 @@
         <label class="mdl-textfield__label" for="till">Bis Uhrzeit</label>
       </div>
     {{/if}}
-    <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--8-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input class="mdl-textfield__input title" type="text" id="sample3" value="{{title}}">
       <label class="mdl-textfield__label" for="sample3">Titel...</label>
     </div>
+
+    <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select mdl-selectfield--floating-labe">
+      <input class="mdl-textfield__input" id="label" style='color:{{getLabel.color}}' value="{{getLabel.title}}" type="text" readonly tabIndex="-1">
+      <label class="mdl-textfield__label" for="label">Choose Label</label>
+      <div class='mdl-selectfield_box'>
+        <span class='mdl-selectfield__arrow-down'></span>
+      </div>
+      <ul class="mdl-menu mdl-js-menu list" for="label">
+        {{#each getLabels}}
+          <li class="mdl-menu__item" labelId='{{_id}}' style='color:{{color}}'>
+            {{title}}
+            <button style='right:0px;top:10px;' class="mdl-button mdl-js-button mdl-button--icon mdl-color-text--accent changeLabel">
+              <i class="material-icons">settings</i>
+            </button>
+          </li>
+        {{/each}}
+        <li class="mdl-menu__item mdl-color-text--primary new">
+          <i style='right:0px' class="material-icons">add</i>
+          New label
+        </li>
+      </ul>
+    </div>
+
     {{#if isTrackReady}}
       <button class="mdl-cell mdl-cell--4-col-phone mdl-cell--12-col mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect remove">
         Löschen
@@ -59,29 +82,49 @@
     </div>
   </div>
   {{ /with }}
-  <!-- {{>newLabel}} -->
+  {{>newLabel}}
 </template>
 
 <template name='newLabel'>
-  <div class="mdl-cell mdl-cell--1-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-    <input class="mdl-textfield__input" id="country" name="country" value="{{getLabel}}" type="text" readonly tabIndex="-1" data-val="BLR"/>
-    <label class="mdl-textfield__label" for="country">Choose Label</label>
-    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu list" for="country">
-      {{#each getLabels}}
-      <li class="mdl-menu__item">{{title}}</li>
-      {{/each}}
-      <li class="mdl-menu__item new">New Label</li>
-    </ul>
-  </div>
   <dialog class="mdl-dialog">
-    <div class="mdl-dialog__content">
-      <p>
-        Allow this site to collect usage data to improve your experience?
-      </p>
-    </div>
-    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-      <button type="button" class="mdl-button">Create</button>
-      <button type="button" class="mdl-button close">Cancel</button>
-    </div>
+    {{#with newLabelObj}}
+      <div class="mdl-dialog__content">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input title" style='background-color:{{color}}' type="text" id="labelTitle" value="{{title}}">
+            <label class="mdl-textfield__label" for="labelTitle">Titel...</label>
+          </div>
+          <select class="mdl-cell mdl-cell--12-col" id="colorpicker" value='{{color}}'>
+            <option value="#7bd148">Green</option>
+            <option value="#5484ed">Bold blue</option>
+            <option value="#a4bdfc">Blue</option>
+            <option value="#46d6db">Turquoise</option>
+            <option value="#7ae7bf">Light green</option>
+            <option value="#51b749">Bold green</option>
+            <option value="#fbd75b">Yellow</option>
+            <option value="#ffb878">Orange</option>
+            <option value="#ff887c">Red</option>
+            <option value="#dc2127">Bold red</option>
+            <option value="#dbadff">Purple</option>
+            <option value="#e1e1e1">Gray</option>
+          </select>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <div class="mdl-grid">
+          {{#unless isNew}}
+            <button type="button" class="mdl-cell mdl-cell--4-col mdl-button removeLabel mdl-button--accent">remove</button>
+          {{/unless}}
+          <button type="button" class="mdl-cell mdl-cell--4-col mdl-button close">Cancel</button>
+          <button type="button" class="mdl-cell mdl-cell--4-col mdl-button mdl-button--primary create">
+            {{#if isNew}}
+              Create
+            {{else}}
+              Update
+            {{/if}}
+          </button>
+        </div>
+      </div>
+    {{/with}}
   </dialog>
 </template>

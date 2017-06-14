@@ -8,16 +8,22 @@ class DBTracks extends Main {
     super('tracks',['desc','title'],Tracks);
   }
   getFullCalendar() {
-    return this.find({
+    let q = {
       title: {$not:""},
       stop: {$not:undefined},
-    }).map(function(doc) {
-      return {
+    };
+    if(Session.get('filterLabel')) q.label = Session.get('filterLabel');
+    if(Session.get('startDate')) q.start = { $gte: Session.get('startDate'), };
+    if(Session.get('toDate')) q.stop = { $lte: Session.get('toDate'), };
+    return this.find(q).map(function(doc) {
+       let item = {
         id: doc._id,
         title: doc.title,
         start: moment(doc.start),
         end: moment(doc.stop),
-      }
+      };
+      if(doc.getLabel()) item.color = doc.getLabel().color;
+      return item;
     });
   }
   new(onNew) {
