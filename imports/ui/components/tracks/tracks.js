@@ -81,6 +81,14 @@ function getJSON() {
   });
   return arr;
 }
+function parseDuration(sec) {
+  var hours = Math.floor(parseInt(sec / (60*60)) % 24);
+  var minutes = Math.floor(parseInt(sec / 60) % 60);
+  var seconds = Math.floor(sec % 60);
+  var days = Math.floor(parseInt(sec / (60*60*24)));
+
+  return days+'d:' + (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+}
 let snackbarContainer;
 Template.tracks.onRendered(function() {
   snackbarContainer = document.querySelector('#demo-snackbar-example');
@@ -91,21 +99,15 @@ Template.tracks.helpers({
     Session.set('query', this.otherData);
     let i = Template.instance();
     let d = _.reduce(
-      tracks.map(function(doc) { console.log(doc.duration(false).asSeconds()); return doc.duration(false).asSeconds(); }),
+      tracks.map(function(doc) { return doc.duration(false).asSeconds(); }),
       function(memo, num) { return memo + num; },
       0
     );
     // console.log(d);
-    var hours = parseInt(d / 3600) % 24;
-    var minutes = parseInt(d / 60) % 60;
-    var seconds = d % 60;
-    let mom = moment.utc(d);
-    // mom.add(1,'h');
-    // let tDuration = mom.format('HH:mm:ss');
-    var tDuration = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + Math.round(seconds) : Math.round(seconds));
+
     // if(!i.totalDuration) i.totalDuration = new ReactiveVar(tDuration);
     // else i.totalDuration.set(tDuration);
-    Session.set('totalDuration', tDuration);
+    Session.set('totalDuration', parseDuration(d));
 
     return tracks;
   },
@@ -123,9 +125,10 @@ Template.tracks.helpers({
     let diff;
     let stop = moment(this.stop);
     diff = moment.duration(stop.diff(start));
-    diff.subtract(1, 'hours');
+    // diff.subtract(1, 'hours');
     // console.log(moment(diff.asMilliseconds()).format('HH:mm:ss'));
-    return moment(diff.asMilliseconds()).format('HH:mm:ss');
+    return parseDuration(diff.asSeconds());
+    // return moment(diff.asMilliseconds()).format('HH:mm:ss');
   },
   timeStart() {
     return moment(this.start).format('DD.MM.YY HH:mm:ss');

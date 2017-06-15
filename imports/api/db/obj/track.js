@@ -35,19 +35,19 @@ class Track extends MainObj {
     this.stop = new Date();
   }
 
-  duration(format='HH:mm:ss') {
+  duration(format='D HH:MM:ss') {
     if(this.start) {
       let stop = this.stop?moment.utc(this.stop):moment.utc();
       let start = moment.utc(this.start);
       let diff = moment.duration(stop.diff(start));
       // diff.subtract(1,'hours');
-      // console.log(moment(diff.asMilliseconds()).format('HH:mm:ss'));
+      // console.log(moment(diff.asMilliseconds()).format('HH:MM:ss'));
       if(format==false) return diff;
       else return moment.utc(diff.asMilliseconds()).format(format);
     }
   }
 
-  parseToTime(date,format="HH:mm") {
+  parseToTime(date,format="HH:MM") {
     // console.log(date,moment(date).format);
     // console.log(format);
     return moment(date).format(format);
