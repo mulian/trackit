@@ -122,6 +122,7 @@ Template.new.events({
     }
   },
   'click .changeLabel'(e,i) {
+    console.log($(e.target.parentElement.parentElement).attr('value'));
     editLabel.set($(e.target.parentElement.parentElement).attr('value'));
     dialog.showModal();
   },

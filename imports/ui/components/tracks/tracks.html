@@ -6,10 +6,10 @@
     </h4>
     {{/if}}
     <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect csvDownload">
-      Download as CSV
+      Export as CSV
     </button>
     <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect jsonDownload">
-      Download as JSON
+      Export as JSON
     </button>
     <h4 class='mdl-cell mdl-cell--2-col-phone mdl-cell--4-col'>
       Total: {{totalDuration}}
@@ -20,11 +20,11 @@
       <table class="mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
           <tr>
-            <th class="mdl-data-table__cell--non-numeric">Titel</th>
+            <th class="mdl-data-table__cell--non-numeric">Title</th>
             <th class="mdl-data-table__cell--non-numeric">Label</th>
-            <th>Von</th>
-            <th>Bis</th>
-            <th>Dauer</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Duration</th>
           </tr>
         </thead>
         <tbody >
@@ -55,11 +55,11 @@
 <template name='filter'>
   <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input datepicker from" type="text" id="from" value="{{startDate}}">
-    <label class="mdl-textfield__label" for="from">Von Datum... (DD.MM.YY [HH:mm])</label>
+    <label class="mdl-textfield__label" for="from">From Date... (DD.MM.YY [HH:mm])</label>
   </div>
   <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--4-col-tablet mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input datepicker till" type="text" id="till" value="{{stopDate}}">
-    <label class="mdl-textfield__label" for="till">Bis Datum... (DD.MM.YY [HH:mm])</label>
+    <label class="mdl-textfield__label" for="till">To Date... (DD.MM.YY [HH:mm])</label>
   </div>
   <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select mdl-selectfield--floating-labe">
     <input class="mdl-textfield__input" id="label" style='color:{{getFilterLabel.color}}' value="{{getFilterLabel.title}}" type="text" readonly tabIndex="-1">

@@ -12,7 +12,7 @@ Template.calendar.onRendered(function() {
   $('#calendar').fullCalendar({
     nowIndicator: true,
     scrollTime: moment().subtract(3,'hours').format('HH:mm:ss'),
-    lang: 'de',
+    lang: navigator.language,
     header: {
       left: 'prev,next today',
       center: 'title',
