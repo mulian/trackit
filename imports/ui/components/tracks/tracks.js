@@ -34,7 +34,7 @@ function getTracks() {
     sort: { start: -1 },
   });
 }
-let withoutColumns = ['_id', 'owner'];
+let withoutColumns = ['_id', 'owner','encrypted'];
 
 function getCSV(withTitle = true) {
   let tracks = getTracks();
@@ -57,7 +57,10 @@ function getCSV(withTitle = true) {
       if (!_.contains(withoutColumns, item)) {
         let tmp = "";
         if (doc[item] instanceof Date) tmp = moment(doc[item]).format('DD.MM.YY HH:MM:ss');
-        else tmp = doc[item];
+        else if(item=='label') {
+          if(doc.label) tmp = dbLabels.findOne({_id:doc.label}).title;
+          else tmp ='';
+        } else tmp = doc[item];
         str += '"' + tmp + '";'
       }
     }
@@ -77,6 +80,8 @@ function getJSON() {
     delete doc.groupAdmins;
     delete doc._id;
     delete doc.encrypted;
+    if(doc.label) doc.label = dbLabels.findOne({_id:doc.label}).title;
+    else doc.label ='';
     arr.push(doc);
   });
   return arr;
