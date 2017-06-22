@@ -5,18 +5,19 @@ import '../ui/ui.js'
 // import { dbProfile } from '../../api/db/db.js'
 
 //Workaround for redirect with replaceState (5.6.17)
-RouteController.prototype.redirect = function (routeOrPath, params, options) {
-    options = options || {};
-    if (!options.hasOwnProperty("replaceState")) {
-        options.replaceState = true;
-    }
-    return this.router.go(routeOrPath, params, options);
+RouteController.prototype.redirect = function(routeOrPath, params, options) {
+  options = options || {};
+  if (!options.hasOwnProperty("replaceState")) {
+    options.replaceState = true;
+  }
+  return this.router.go(routeOrPath, params, options);
 };
-let collections = ['db_secure_user','db_secure_groups_users','db_users','db_tracks','db_labels']
+let collections = ['db_secure_user', 'db_secure_groups_users', 'db_users', 'db_tracks', 'db_labels']
+
 function subscribers() {
-  for(collection of collections) {
+  for (collection of collections) {
     let tmp = this.subscribe(collection);
-    if(navigator.onLine) tmp.wait();
+    if (navigator.onLine) tmp.wait();
   }
 }
 
@@ -29,10 +30,11 @@ function subscribers() {
  * @param data          Daten die an das Template geschickt werden
  */
 let isApp = false;
-function loginActionWith(_this, appTemplate, welcomeTemplate,otherData) {
+
+function loginActionWith(_this, appTemplate, welcomeTemplate, otherData) {
   if (_this.ready()) {
     if (Meteor.userId()) {
-      _this.render('app',{
+      _this.render('app', {
         data: {
           template: appTemplate,
           otherData: otherData,
@@ -40,7 +42,7 @@ function loginActionWith(_this, appTemplate, welcomeTemplate,otherData) {
       });
     } else {
       if (welcomeTemplate == undefined) Router.go('/');
-      _this.render('welcome',{
+      _this.render('welcome', {
         data: {
           template: welcomeTemplate,
         },
@@ -53,19 +55,19 @@ function loginActionWith(_this, appTemplate, welcomeTemplate,otherData) {
  ----------------------------- */
 
 Router.route('/new', {
- name: 'new',
- subscriptions: subscribers,
- action: function() {
-  //  this.state.set('trackId', undefined);
-   loginActionWith(this, 'new', 'fullPageAtForm');
- },
+  name: 'new',
+  subscriptions: subscribers,
+  action: function() {
+    //  this.state.set('trackId', undefined);
+    loginActionWith(this, 'new', 'fullPageAtForm',this.params.hash);
+  },
 });
-Router.route('/show/:_id',{
+Router.route('/show/:_id', {
   name: 'show',
   subscriptions: subscribers,
   action: function() {
     // this.state.set('trackId', this.params._id);
-    loginActionWith(this, 'new', 'fullPageAtForm',this.params._id);
+    loginActionWith(this, 'new', 'fullPageAtForm', this.params._id);
   },
 });
 Router.route('/tracks', {
@@ -74,7 +76,7 @@ Router.route('/tracks', {
   action: function() {
     // this.state.set('taskID', undefined);
     // console.log(this.params);
-    loginActionWith(this, 'tracks', 'fullPageAtForm',this.params.query.q);
+    loginActionWith(this, 'tracks', 'fullPageAtForm', this.params.query.q);
   },
 });
 Router.route('/labels', {
@@ -83,7 +85,7 @@ Router.route('/labels', {
   action: function() {
     // this.state.set('taskID', undefined);
     // console.log(this.params);
-    loginActionWith(this, 'labels', 'fullPageAtForm',this.params.query.q);
+    loginActionWith(this, 'labels', 'fullPageAtForm', this.params.query.q);
   },
 });
 Router.route('/calendar', {
@@ -92,7 +94,7 @@ Router.route('/calendar', {
   action: function() {
     // this.state.set('taskID', undefined);
     // console.log(this.params);
-    loginActionWith(this, 'calendar', 'fullPageAtForm',this.params.query.q);
+    loginActionWith(this, 'calendar', 'fullPageAtForm', this.params.query.q);
   },
 });
 
@@ -101,7 +103,7 @@ Router.route('/', {
   subscriptions: subscribers,
   action: function() {
     // this.state.set('taskID', undefined);
-    if (Meteor.userId()) this.redirect('new',undefined,{ replaceState: true }); //Goto timeline if logged in
+    if (Meteor.userId()) this.redirect('new', undefined, { replaceState: true }); //Goto timeline if logged in
     else loginActionWith(this, undefined, 'fullPageAtForm');
   },
 });

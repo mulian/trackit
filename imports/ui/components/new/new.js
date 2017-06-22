@@ -7,7 +7,7 @@ import 'mdl-select-component/mdl-selectfield.min.css'
 
 Template.new.onCreated(function() {
   // this.now = new ReactiveVar();
-
+  // console.log(this);
 });
 var snackbarContainer;
 Template.new.onRendered(function() {
@@ -16,7 +16,7 @@ Template.new.onRendered(function() {
     donetext: 'Fertig',
     vibrate: true,
   });
-  // this.$('.title').focus();
+  this.$('.title').focus();
   snackbarContainer = document.querySelector('#demo-snackbar-example');
 });
 

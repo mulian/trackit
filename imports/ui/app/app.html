@@ -1,30 +1,37 @@
 <template name='app'>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+  <div id='app' class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">
-          <img src='/icon.svg' height='30px'>
-          {{#with current}}
+      {{#with current}}
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">
+            <img src='/icon.svg' height='30px'>
             {{#if isStarted}}
               {{currentDuration}}
               -
               {{title}}
             {{else}}
-              Track IT!
+              <a class='headerTitle' href="{{pathFor route='new'}}">
+                Track IT!
+              </a>
             {{/if}}
-          {{/with}}
-        </span>
+          </span>
 
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-            <i class="material-icons">search</i>
-          </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input searchit" type="text" name="sample" id="fixed-header-drawer-exp">
-          </div>
+          <div class="mdl-layout-spacer"></div>
+          <!-- Right aligned menu below button -->
+          <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+            {{#if isStarted}}
+              <li class="mdl-menu__item stopTimer">Stop timer</li>
+            {{else}}
+              <li class="mdl-menu__item startTimer">Start timer</li>
+            {{/if}}
+            <li disabled class="mdl-menu__item setFilter">Filter</li>
+          </ul>
         </div>
-      </div>
+      {{/with}}
     </header>
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Menu</span>
@@ -68,5 +75,16 @@
   <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+</template>
+
+<template name='removedSearch'>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+    <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+      <i class="material-icons">search</i>
+    </label>
+    <div class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input searchit" type="text" name="sample" id="fixed-header-drawer-exp">
+    </div>
   </div>
 </template>
