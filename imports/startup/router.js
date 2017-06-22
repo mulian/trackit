@@ -101,7 +101,7 @@ Router.route('/', {
   subscriptions: subscribers,
   action: function() {
     // this.state.set('taskID', undefined);
-    if (Meteor.userId()) this.redirect('tracks',undefined,{ replaceState: true }); //Goto timeline if logged in
+    if (Meteor.userId()) this.redirect('new',undefined,{ replaceState: true }); //Goto timeline if logged in
     else loginActionWith(this, undefined, 'fullPageAtForm');
   },
 });
