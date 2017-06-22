@@ -1,5 +1,5 @@
 {
-  "name": "Home",
+  "name": "TrackIT!",
   "icons": [
     {
       "src": "/icon_256.png",
@@ -9,5 +9,6 @@
   ],
   "theme_color": "#FFF",
   "display": "standalone",
-  "start_url": "/"
+  "start_url": "/",
+  "orientation": "portrait"
 }

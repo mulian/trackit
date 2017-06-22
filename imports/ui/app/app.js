@@ -69,7 +69,11 @@ Template.app.helpers({
     return track;
   },
   isStarted() {
-    return this.start && !this.stop;
+    if(this.start && !this.stop) return true;
+    else {
+      document.title = "TrackIT!";
+      return false;
+    }
   },
   currentDuration() {
     // console.log(this);
@@ -78,14 +82,16 @@ Template.app.helpers({
     if (!i.now) i.now = new ReactiveVar();
     let nowVar = i.now;
     if (this && this.start)
-      setTimeout(function() {
+      Meteor.setTimeout(function() {
         // console.log("jo");
         nowVar.set(new Date());
       }, 1 * 1000);
     nowVar.get(); //for refresh...
 
     // console.log(this);
-    return this.duration('HH:mm:ss');
+    let theTime = this.duration('HH:mm:ss');
+    document.title = theTime;
+    return theTime;
   },
 });
 
