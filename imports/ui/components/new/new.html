@@ -8,19 +8,19 @@
     {{#if isTrackReady}}
       <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--2-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input fromDate" type="text" id='fromDate' value="{{parseToTime start 'DD.MM.YY'}}">
-        <label class="mdl-textfield__label" for="fromDate">Von Datum</label>
+        <label class="mdl-textfield__label" for="fromDate">From date (dd.mm.yy)</label>
       </div>
       <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--2-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input clockpicker from" type="text" id='from' value="{{parseToTime start 'HH:mm'}}">
-        <label class="mdl-textfield__label" for="from">Von Uhrzeit</label>
+        <label class="mdl-textfield__label" for="from">From time (hh:mm)</label>
       </div>
       <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--2-col mdl-cell--2-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input tillDate" type="text" id='tillDate' value="{{parseToTime stop 'DD.MM.YY'}}">
-        <label class="mdl-textfield__label" for="tillDate">Bis Datum</label>
+        <label class="mdl-textfield__label" for="tillDate">To date (dd.mm.yy)</label>
       </div>
       <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--2-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input till clockpicker" type="text" id='till' value="{{parseToTime stop 'HH:mm'}}">
-        <label class="mdl-textfield__label" for="till">Bis Uhrzeit</label>
+        <label class="mdl-textfield__label" for="till">To time (hh:mm)</label>
       </div>
     {{/if}}
     <div class="mdl-cell mdl-cell--4-col-tablet mdl-cell--8-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -59,7 +59,7 @@
         Start
       </button>
       <button class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect stop" {{stopDisabled}}>
-        Ende
+        End
       </button>
     {{/if}}
     <h4 class="mdl-cell mdl-cell--12-col">Description</h4>
